@@ -1,5 +1,20 @@
 "use strict";
 
+import fs from "fs";
+import util from "util";
+
+const log_file = fs.createWriteStream("/Users/leifriksheim/debug.log", {
+  flags: "w",
+});
+const log_stdout = process.stdout;
+
+console.log = function (...args: any) {
+  args.forEach((arg: any) => {
+    log_file.write(util.format(arg) + "\n");
+    log_stdout.write(util.format(arg) + "\n");
+  });
+};
+
 import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
@@ -36,11 +51,13 @@ app.on("ready", async () => {
     console.log("App is running in production mode");
     //TODO: this code is probably somewhat broken
     builtInLangPath = path.resolve(
-      `${process.resourcesPath}/../resources/packaged-resources/languages`
+      `${process.resourcesPath}/../Resources/packaged-resources/languages`
     );
     execPath = path.resolve(
-      `${process.resourcesPath}/../resources/packaged-resources/bin`
+      `${process.resourcesPath}/../Resources/packaged-resources/bin`
     );
+    log_file.write(execPath);
+    log_file.write(builtInLangPath);
   } else {
     console.log("App is running in dev mode");
     builtInLangPath = path.resolve(`${__dirname}/../ad4m/languages`);
@@ -54,11 +71,19 @@ app.on("ready", async () => {
     builtInLangPath
   );
 
+  const userDataPath = app.getPath("userData");
+  fs.appendFile(userDataPath + "/hello.txt", "Hello content!", function (err) {
+    if (err) throw err;
+    console.log("Saved!");
+  });
+
+  console.log({ userDataPath });
+
   //createWindow();
   console.log("\x1b[36m%s\x1b[0m", "Init AD4M...");
   ad4m
     .init(
-      app.getPath("appData"),
+      app.getPath("userData"),
       execPath,
       builtInLangPath,
       ["languages", "shared-perspectives"],
