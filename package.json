@@ -6,7 +6,8 @@
   "author": "josh@junto.foundation",
   "scripts": {
     "lint": "vue-cli-service lint",
-    "build-languages": "for OUTPUT in $(ls ad4m/languages); do echo \"Building: $OUTPUT\" && cd ad4m/languages/$OUTPUT && npm i && npm run build && cd -; done",
+    "get-languages": "node scripts/get-languages.js",
+    "build-languages": "npm run get-languages && for OUTPUT in $(ls ad4m/languages); do if [ $OUTPUT != \"profiles\" ]; then echo \"Building: $OUTPUT\" && cd ad4m/languages/$OUTPUT && npm i && npm run build && cd -; fi; done",
     "build-start": "cd ../ad4m-core-executor && npm run build && cd ../communities && npm run electron:serve",
     "clean-state": "node scripts/clean-state.js",
     "electron:build": "vue-cli-service electron:build",
@@ -67,7 +68,9 @@
     "sass-loader": "^8.0.2",
     "typescript": "^4.2.4",
     "vue-cli-plugin-electron-builder": "~2.0.0-rc.6",
-    "vue-devtools": "^5.1.4"
+    "vue-devtools": "^5.1.4",
+    "node-wget-js": "^1.0.1",
+    "fs-extra": "^10.0.0"
   },
   "contributors": [
     "eric@junto.foundation"
