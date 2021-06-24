@@ -86,7 +86,7 @@
           :key="channel.perspective"
         >
           <j-menu-item
-            :id="`channel${channel.name.replaceAll(' ', '')}`"
+            :id="getValidId(channel.perspective)"
             class="channel"
             :selected="isExactActive"
             @click="navigate"
@@ -102,7 +102,7 @@
             class="community-sidebar__header-menu"
             event="contextmenu"
             placement="bottom-start"
-            :selector="`#channel${channel.name.replaceAll(' ', '')}`"
+            :selector="'#' + getValidId(channel.perspective)"
           >
             <j-menu>
               <j-menu-item
@@ -148,6 +148,9 @@ export default defineComponent({
       "setShowCommunityMembers",
       "setChannelNotificationState",
     ]),
+    getValidId(val: string) {
+      return "channel-" + val;
+    },
     getInviteCode() {
       // Get the invite code to join community and copy to clipboard
       let currentCommunity = this.community;
