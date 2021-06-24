@@ -97,7 +97,7 @@ export default defineComponent({
   data() {
     return {
       cachedChannelId: "",
-      chachedCommunityId: "",
+      cachedCommunityId: "",
       lastScrollTop: 0,
       showNewMessagesButton: false,
       noDelayRef: 0,
@@ -117,7 +117,7 @@ export default defineComponent({
   mounted() {
     // Set cached id's as Vue has a bug where route params
     // update before the component is unmounted/beforeUnmount
-    this.chachedCommunityId = this.$route.params.communityId as string;
+    this.cachedCommunityId = this.$route.params.communityId as string;
     this.cachedChannelId = this.$route.params.channelId as string;
 
     const scrollContainer = this.$refs.scrollContainer as HTMLDivElement;
@@ -207,14 +207,14 @@ export default defineComponent({
     community(): CommunityState {
       const { communityId } = this.$route.params;
       return this.$store.getters.getCommunity(
-        this.chachedCommunityId || communityId
+        this.cachedCommunityId || communityId
       );
     },
     channel(): ChannelState {
       const { communityId, channelId } = this.$route.params;
       return this.$store.getters.getChannel({
         channelId: this.cachedChannelId || channelId,
-        communityId: this.chachedCommunityId || communityId,
+        communityId: this.cachedCommunityId || communityId,
       });
     },
     profileLanguage(): string {
