@@ -14,7 +14,9 @@
       @input="(e) => (username = e.target.value)"
     ></j-input>
     <div>
-      <j-button size="lg" @click="$emit('cancel')"> Cancel </j-button>
+      <j-button variant="link" size="lg" @click="$emit('cancel')">
+        Cancel
+      </j-button>
       <j-button size="lg" variant="primary" @click="updateProfile">
         Save
       </j-button>
