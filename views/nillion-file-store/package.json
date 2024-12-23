@@ -1,7 +1,7 @@
 {
   "name": "@coasys/nillion-file-store",
   "description": "File storage powered by Nillion",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "type": "module",
   "fluxapp": {
     "name": "Nillion File Storage",
@@ -33,10 +33,10 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/client": "=3.6.9",
-    "@coasys/ad4m": "0.10.0-rc13",
-    "@coasys/ad4m-react-hooks": "0.10.0-rc13",
-    "@coasys/flux-api": "0.10.0-rc13",
-    "@coasys/flux-container": "0.10.0-rc13",
+    "@coasys/ad4m": "0.10.0",
+    "@coasys/ad4m-react-hooks": "0.10.0",
+    "@coasys/flux-api": "0.10.0",
+    "@coasys/flux-container": "0.10.0",
     "@cosmjs/proto-signing": "^0.32.3",
     "@cosmjs/stargate": "^0.32.3",
     "@keplr-wallet/cosmos": "^0.12.107",

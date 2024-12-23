@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-react-web",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "description": "",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
@@ -17,14 +17,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@coasys/flux-api": "0.10.0-rc13",
-    "@coasys/flux-constants": "0.10.0-rc13",
-    "@coasys/flux-types": "0.10.0-rc13",
-    "@coasys/flux-utils": "0.10.0-rc13",
-    "@coasys/flux-webrtc": "0.10.0-rc13"
+    "@coasys/flux-api": "0.10.0",
+    "@coasys/flux-constants": "0.10.0",
+    "@coasys/flux-types": "0.10.0",
+    "@coasys/flux-utils": "0.10.0",
+    "@coasys/flux-webrtc": "0.10.0"
   },
   "peerDependencies": {
-    "@coasys/ad4m": "0.10.0-rc13",
+    "@coasys/ad4m": "0.10.0",
     "react": "*"
   }
 }

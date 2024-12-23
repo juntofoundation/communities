@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-ui",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "description": "",
   "homepage": "https://docs.fluxsocial.io",
   "main": "dist/main.js",
@@ -28,7 +28,7 @@
     "publish-package": "npm publish"
   },
   "dependencies": {
-    "@coasys/flux-utils": "0.10.0-rc13",
+    "@coasys/flux-utils": "0.10.0",
     "@popperjs/core": "^2.11.7",
     "construct-style-sheets-polyfill": "^3.1.0",
     "emoji-mart": "^5.5.2",

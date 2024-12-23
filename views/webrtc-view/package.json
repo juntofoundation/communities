@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-webrtc-view",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "type": "module",
   "fluxapp": {
     "name": "Audio",
@@ -49,11 +49,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@coasys/ad4m": "0.10.0-rc13",
-    "@coasys/flux-container": "0.10.0-rc13",
-    "@coasys/flux-webrtc": "0.10.0-rc13",
-    "@coasys/flux-utils": "0.10.0-rc13",
-    "@coasys/ad4m-react-hooks": "0.10.0-rc13",
+    "@coasys/ad4m": "0.10.0",
+    "@coasys/flux-container": "0.10.0",
+    "@coasys/flux-webrtc": "0.10.0",
+    "@coasys/flux-utils": "0.10.0",
+    "@coasys/ad4m-react-hooks": "0.10.0",
     "@types/simple-peer": "^9.11.8",
     "@xenova/transformers": "^2.17.2",
     "classnames": "^2.3.2",

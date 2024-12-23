@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-synergy-demo-view",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "private": false,
   "fluxapp": {
     "name": "Synergy",
@@ -34,11 +34,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@coasys/ad4m": "0.10.0-rc13",
-    "@coasys/flux-utils": "0.10.0-rc13",
-    "@coasys/ad4m-react-hooks": "0.10.0-rc13",
-    "@coasys/flux-api": "0.10.0-rc13",
-    "@coasys/flux-webrtc-view": "0.10.0-rc13",
+    "@coasys/ad4m": "0.10.0",
+    "@coasys/flux-utils": "0.10.0",
+    "@coasys/ad4m-react-hooks": "0.10.0",
+    "@coasys/flux-api": "0.10.0",
+    "@coasys/flux-webrtc-view": "0.10.0",
     "preact": "^10.13.1"
   },
   "devDependencies": {

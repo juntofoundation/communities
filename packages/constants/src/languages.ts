@@ -1,4 +1,7 @@
 export const FILE_STORAGE_LANGUAGE =
+  "QmzSYwdoF5PwC4JdtZd3MSbQv6BWV2MLHaAgCgvnTUHGcqygbhK";
+
+  export const CENTRALIZED_FILE_STORAGE_LANGUAGE =
   "QmzSYwdjqeP9D13Sfmyc5HcabM9jL3DtPyhadnF6dQXu4FjVSbQ";
 
 export const EMBEDDING_VECTOR_LANGUAGE =

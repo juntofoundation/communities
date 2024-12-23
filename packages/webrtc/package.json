@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-webrtc",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "description": "",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@coasys/ad4m": "0.10.0-rc13",
+    "@coasys/ad4m": "0.10.0",
     "simple-peer": "^9.11.1"
   }
 }

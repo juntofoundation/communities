@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-post-view",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "description": "",
   "fluxapp": {
     "name": "Posts",
@@ -36,13 +36,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@coasys/ad4m": "0.10.0-rc13",
-    "@coasys/flux-api": "0.10.0-rc13",
-    "@coasys/flux-comment-section": "0.10.0-rc13",
-    "@coasys/flux-editor": "0.10.0-rc13",
-    "@coasys/flux-ui": "0.10.0-rc13",
-    "@coasys/flux-utils": "0.10.0-rc13",
-    "@coasys/ad4m-react-hooks": "0.10.0-rc13",
+    "@coasys/ad4m": "0.10.0",
+    "@coasys/flux-api": "0.10.0",
+    "@coasys/flux-comment-section": "0.10.0",
+    "@coasys/flux-editor": "0.10.0",
+    "@coasys/flux-ui": "0.10.0",
+    "@coasys/flux-utils": "0.10.0",
+    "@coasys/ad4m-react-hooks": "0.10.0",
     "classnames": "^2.3.2",
     "date-fns": "^2.24.0",
     "emoji-picker-element": "^1.14.0",
@@ -55,7 +55,7 @@
     "tippy.js": "^6.3.1"
   },
   "devDependencies": {
-    "@coasys/flux-container": "0.10.0-rc13",
+    "@coasys/flux-container": "0.10.0",
     "@preact/preset-vite": "^2.5.0",
     "@types/react": "^17.0.2",
     "np": "^7.5.0",

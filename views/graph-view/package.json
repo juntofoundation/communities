@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-graph-view",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "type": "module",
   "fluxapp": {
     "name": "Graph",
@@ -36,8 +36,8 @@
   "description": "",
   "dependencies": {
     "3d-force-graph": "^1.70.19",
-    "@coasys/ad4m": "0.10.0-rc13",
-    "@coasys/flux-container": "0.10.0-rc13",
+    "@coasys/ad4m": "0.10.0",
+    "@coasys/flux-container": "0.10.0",
     "preact": "^10.11.3",
     "three-spritetext": "^1.6.5"
   },

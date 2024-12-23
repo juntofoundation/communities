@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-docs",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "description": "",
   "type": "module",
   "homepage": "https://docs.fluxsocial.io",
@@ -10,8 +10,8 @@
     "dev": "vitepress dev"
   },
   "dependencies": {
-    "@coasys/flux-container": "0.10.0-rc13",
-    "@coasys/flux-ui": "0.10.0-rc13",
+    "@coasys/flux-container": "0.10.0",
+    "@coasys/flux-ui": "0.10.0",
     "eventsource-parser": "^1.0.0",
     "vitepress": "1.0.0-alpha.75"
   },

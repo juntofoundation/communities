@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-utils",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "description": "",
   "main": "./src/index.ts",
   "module": "./src/index.ts",
@@ -14,14 +14,14 @@
     "publish-package": "npm publish"
   },
   "dependencies": {
-    "@coasys/flux-constants": "0.10.0-rc13",
-    "@coasys/flux-types": "0.10.0-rc13",
+    "@coasys/flux-constants": "0.10.0",
+    "@coasys/flux-types": "0.10.0",
     "json5": "^2.2.3",
     "openai": "^4.55.5"
   },
   "peerDependencies": {
-    "@coasys/ad4m": "0.10.0-rc13",
-    "@coasys/ad4m-connect": "0.10.0-rc13"
+    "@coasys/ad4m": "0.10.0",
+    "@coasys/ad4m-connect": "0.10.0"
   },
   "keywords": [],
   "author": "",

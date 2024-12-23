@@ -1,6 +1,6 @@
 {
   "name": "@coasys/flux-container",
-  "version": "0.10.0-rc13",
+  "version": "0.10.0",
   "type": "module",
   "module": "dist/flux-container.js",
   "main": "dist/flux-container.js",
@@ -20,10 +20,10 @@
     "publish-package": "npm publish"
   },
   "dependencies": {
-    "@coasys/ad4m": "0.10.0-rc13",
-    "@coasys/ad4m-connect": "0.10.0-rc13",
-    "@coasys/flux-api": "0.10.0-rc13",
-    "@coasys/flux-ui": "0.10.0-rc13",
+    "@coasys/ad4m": "0.10.0",
+    "@coasys/ad4m-connect": "0.10.0",
+    "@coasys/flux-api": "0.10.0",
+    "@coasys/flux-ui": "0.10.0",
     "lit-element": "^2.4.0"
   },
   "devDependencies": {
