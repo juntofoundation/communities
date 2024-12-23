@@ -39,7 +39,7 @@
     "@coasys/flux-comment-section": "0.10.0-rc13",
     "@coasys/flux-container": "0.10.0-rc13",
     "@coasys/flux-types": "0.10.0-rc13",
-    "@coasys/ad4m-react-hooks": "0.10.0-rc13",
+    "@coasys/ad4m-react-hooks": "0.10.0-rc13.fix",
     "fractional-indexing": "^3.2.0",
     "preact": "^10.13.1",
     "react-beautiful-dnd": "^13.1.1"
