@@ -1,6 +1,6 @@
 import { isEqual } from "lodash";
 import { useEffect, useState } from "preact/hooks";
-import { ChevronDownSVG, ChevronUpSVG, getConvoData } from "../../utils";
+import { ChevronDownSVG, ChevronUpSVG, getConversationData } from "../../utils";
 import TimelineBlock from "../TimelineBlock";
 import styles from "./Match.module.scss";
 
@@ -20,9 +20,9 @@ export default function Match({ perspective, agent, match, index, selectedTopicI
   const [collapseAfter, setCollapseAfter] = useState(true);
 
   useEffect(() => {
-    getConvoData(perspective, channel.id, match, setMatchIndex).then((conversationData) => {
+    getConversationData(perspective, channel.id, match, setMatchIndex).then(({ conversations }) => {
       setData((prevItems) => {
-        if (!isEqual(prevItems, conversationData)) return conversationData;
+        if (!isEqual(prevItems, conversations)) return conversations;
         return prevItems;
       });
     });

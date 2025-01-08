@@ -31,6 +31,7 @@ export default function TimelineBlock({
 }: Props) {
   const {
     baseExpression,
+    state,
     groupType,
     timestamp,
     start,
@@ -234,11 +235,15 @@ export default function TimelineBlock({
             <PercentageRing ringSize={70} fontSize={10} score={match.score * 100} />
           )}
           <j-flex gap="300" direction="column">
-            <j-flex gap="400">
+            <j-flex gap="400" a="center">
               <j-icon name={data.icon} color="ui-400" size="lg" />
               <j-flex gap="400" a="center" wrap>
                 <Avatar did={author} showName />
               </j-flex>
+              {state === "unprocessed" && <j-badge variant="warning">Unprocessed</j-badge>}
+              {!["processed", "unprocessed"].includes(state) && (
+                <j-badge variant="success">Processing...</j-badge>
+              )}
             </j-flex>
             <j-text
               nomargin
@@ -246,7 +251,7 @@ export default function TimelineBlock({
               className={styles.itemText}
               color="color-white"
             />
-            {selected && (
+            {selected && state === "processed" && (
               <j-flex gap="300" wrap style={{ marginTop: 10 }}>
                 {topics.map((topic) => (
                   <button

@@ -30,14 +30,12 @@ export default function SynergyDemoView({ perspective, agent, source }: Props) {
   const [searchItem, setSearchItem] = useState<any>({});
   const [searching, setSearching] = useState(false);
   const [searchType, setSearchType] = useState("");
-  const [processingItems, setProcessingItems] = useState<string[]>([]);
   const [filterSettings, setFilterSettings] = useState({
     grouping: "Conversations",
     itemType: "All Types",
     includeChannel: false,
   });
   const [showMatchColumn, setShowMatchColumn] = useState(false);
-  const worker = useRef<Worker | null>(null);
 
   function entryTypeToSubjectClass(entryType: string) {
     if (entryType === "flux://conversation") return "Conversation";
@@ -221,8 +219,6 @@ export default function SynergyDemoView({ perspective, agent, source }: Props) {
             perspective={perspective}
             channelId={source}
             selectedTopicId={selectedTopic.baseExpression}
-            processingItems={processingItems}
-            setProcessingItems={setProcessingItems}
             search={search}
           />
         </div>
@@ -237,7 +233,6 @@ export default function SynergyDemoView({ perspective, agent, source }: Props) {
             source={source}
             agent={agent}
             currentView="@coasys/flux-synergy-demo-view"
-            setProcessingItems={setProcessingItems}
           />
         </div>
         <div

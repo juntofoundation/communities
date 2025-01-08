@@ -16,15 +16,9 @@ type Props = {
   source: string;
   perspective: any;
   webRTC: WebRTC;
-  setProcessingItems?: (itemIds) => void;
 };
 
-export default function Transcriber({
-  source,
-  perspective,
-  webRTC,
-  setProcessingItems,
-}: Props) {
+export default function Transcriber({ source, perspective, webRTC }: Props) {
   const { audio, transcriber } = webRTC.localState.settings;
   const { selectedModel, previewTimeout, messageTimeout } = transcriber;
   const [transcripts, setTranscripts] = useState<any[]>([]);
@@ -61,9 +55,7 @@ export default function Transcriber({
     setTranscripts((ts) => {
       const newTranscripts = [...ts];
       // search for existing transcript
-      const match = newTranscripts.find(
-        (t) => t.id === currentTranscript.current
-      );
+      const match = newTranscripts.find((t) => t.id === currentTranscript.current);
       // if match found, update text
       if (match) match.text = match.text + text;
       else {
@@ -100,13 +92,9 @@ export default function Transcriber({
       let fullText = "";
       setTranscripts((ts) => {
         const newTranscripts = [...ts];
-        const match = newTranscripts.find(
-          (t) => t.id === currentTranscript.current
-        );
+        const match = newTranscripts.find((t) => t.id === currentTranscript.current);
         if (match) {
           fullText = match.text;
-          if (setProcessingItems)
-            setProcessingItems((items) => [...items, `<p>${fullText}</p>`]);
           match.state = "saved";
         }
         return newTranscripts;
@@ -115,10 +103,8 @@ export default function Transcriber({
       const previousId = currentTranscript.current;
       currentTranscript.current = null;
       // trigger outro transitions
-      const transcriptCard = document.getElementById(
-        `transcript-${previousId}`
-      );
-      if(transcriptCard){
+      const transcriptCard = document.getElementById(`transcript-${previousId}`);
+      if (transcriptCard) {
         transcriptCard.classList.add(styles.slideLeft);
         setTimeout(() => {
           transcriptCard.classList.add(styles.hide);
@@ -127,7 +113,7 @@ export default function Transcriber({
           }, 500);
         }, 500);
       }
-      
+
       // save message
       // @ts-ignore
       const message = (await messageRepo.create({
@@ -149,27 +135,18 @@ export default function Transcriber({
       .then(async (stream) => {
         streamId.current = await startTranscription(handleTranscriptionText);
         // set up audio context & worklet node
-        audioContext.current = new (window.AudioContext ||
-          (window as any).webkitAudioContext)();
-        await audioContext.current.audioWorklet.addModule(
-          "/audio-processor.js"
-        );
-        const mediaStreamSource =
-          audioContext.current.createMediaStreamSource(stream);
-        const workletNode = new AudioWorkletNode(
-          audioContext.current,
-          "audio-processor"
-        );
+        audioContext.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+        await audioContext.current.audioWorklet.addModule("/audio-processor.js");
+        const mediaStreamSource = audioContext.current.createMediaStreamSource(stream);
+        const workletNode = new AudioWorkletNode(audioContext.current, "audio-processor");
         mediaStreamSource.connect(workletNode);
         workletNode.port.onmessage = (event) => {
-          if (listening.current)
-            feedTranscription(streamId.current, event.data);
+          if (listening.current) feedTranscription(streamId.current, event.data);
         };
         workletNode.connect(audioContext.current.destination);
         // set up analyser to render volume
         analyser.current = audioContext.current.createAnalyser();
-        sourceNode.current =
-          audioContext.current.createMediaStreamSource(stream);
+        sourceNode.current = audioContext.current.createMediaStreamSource(stream);
         sourceNode.current.connect(analyser.current);
         analyser.current.fftSize = 2048;
         dataArray.current = new Uint8Array(analyser.current.fftSize);
@@ -226,11 +203,7 @@ export default function Transcriber({
                 className={styles.transcript}
               >
                 <j-flex direction="column" gap="300">
-                  <j-timestamp
-                    value={transcript.timestamp}
-                    dateStyle="short"
-                    timeStyle="short"
-                  />
+                  <j-timestamp value={transcript.timestamp} dateStyle="short" timeStyle="short" />
                   <j-text nomargin size="600">
                     {transcript.text}
                   </j-text>

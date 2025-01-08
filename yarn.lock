@@ -1289,10 +1289,10 @@
     esbuild-plugin-replace "^1.4.0"
     lit "^2.3.1"
 
-"@coasys/ad4m-react-hooks@0.10.0-rc13":
-  version "0.10.0-rc13"
-  resolved "https://registry.yarnpkg.com/@coasys/ad4m-react-hooks/-/ad4m-react-hooks-0.10.0-rc13.tgz#d9d372f6334e390e91ccf7b0dfec5ce67aaec197"
-  integrity sha512-/rjEmdUlQyKVhmRH2LqLKnk+MYe3KIklrcfg8OvJP88EdCUbWrBJRnDljzsclx0yg5V9NpdleoJZvlat7Wm/WA==
+"@coasys/ad4m-react-hooks@0.10.0-rc13.fix":
+  version "0.10.0-rc13.fix"
+  resolved "https://registry.yarnpkg.com/@coasys/ad4m-react-hooks/-/ad4m-react-hooks-0.10.0-rc13.fix.tgz#79af17d196e3f6ee25a84ee4497cfd9e75577d40"
+  integrity sha512-uG3rOSU4fhExTAzM7BaLod3LFV40NhC9HWBK5qquKAEicGw8ilmQWHYWmds33fFL6OEG1axIPfCaw3gxQUh50Q==
   dependencies:
     "@coasys/ad4m" "*"
     "@coasys/ad4m-connect" "*"

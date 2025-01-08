@@ -1,18 +1,15 @@
-import { useSubjects } from "@coasys/ad4m-react-hooks";
-import { Message, Post } from "@coasys/flux-api";
-import { isEqual } from "lodash";
-import { useEffect, useState } from "preact/hooks";
-import { closeMenu, getConvoData, groupingOptions } from "../../utils";
+import { useEffect, useState, useRef } from "preact/hooks";
+import { closeMenu, getConversationData, groupingOptions, findItemState } from "../../utils";
+import { processItem } from "@coasys/flux-utils";
 import TimelineBlock from "../TimelineBlock";
 import styles from "./TimelineColumn.module.scss";
+import { getAd4mClient } from "@coasys/ad4m-connect/utils";
 
 type Props = {
   agent: any;
   perspective: any;
   channelId: string;
   selectedTopicId: string;
-  processingItems: string[];
-  setProcessingItems: (items: any) => void;
   search: (type: "topic" | "vector", id: string) => void;
 };
 
@@ -21,74 +18,103 @@ export default function TimelineColumn({
   perspective,
   channelId,
   selectedTopicId,
-  processingItems,
-  setProcessingItems,
   search,
 }: Props) {
-  const [data, setData] = useState<any[]>([]);
+  const [conversations, setConversations] = useState<any[]>([]);
+  const [processingItems, setProcessingItems] = useState<any[]>([]);
+  const [unprocessedItems, setUnprocessedItems] = useState<any[]>([]);
+  const [processing, setProcessing] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<any>(null);
   const [zoom, setZoom] = useState(groupingOptions[0]);
+  const [usingLLM, setUsingLLM] = useState(false);
+  const timeout = useRef<any>(null);
 
-  const { entries: messages } = useSubjects({
-    perspective,
-    source: channelId,
-    subject: Message,
-  });
-  const { entries: posts } = useSubjects({
-    perspective,
-    source: channelId,
-    subject: Post,
-  });
-  const { entries: tasks } = useSubjects({
-    perspective,
-    source: channelId,
-    subject: "Task",
-  });
+  async function getData() {
+    const data = await getConversationData(perspective, channelId);
+    setProcessingItems(data.processingItems);
+    setUnprocessedItems(data.unprocessedItems);
+    setConversations(data.conversations);
+  }
+
+  async function processItems() {
+    setProcessing(true);
+    for (const item of unprocessedItems) {
+      // check if item still needs processing first incase someone has started
+      const state = await findItemState(perspective, item.baseExpression);
+      if (state !== "unprocessed") continue;
+      await processItem(perspective, channelId, item, true);
+    }
+    setProcessing(false);
+  }
+
+  async function checkIfUsingLLM() {
+    const client = await getAd4mClient();
+    const defaultLLM = await client.ai.getDefaultModel("LLM");
+    setUsingLLM(!!defaultLLM);
+  }
+
+  function linkAddedListener() {
+    if (timeout.current) clearTimeout(timeout.current);
+    timeout.current = setTimeout(getData, 1000);
+  }
 
   useEffect(() => {
-    if (channelId) {
-      getConvoData(perspective, channelId).then((conversationData) => {
-        setData((prevItems) => {
-          if (!isEqual(prevItems, conversationData)) {
-            // remove completed items from the processing list
-            setProcessingItems((prevItems) => {
-              const itemsToRemove = [];
-              conversationData.forEach((convo) => {
-                convo.children?.forEach((group) => {
-                  group.children?.forEach((item) => {
-                    if (prevItems.includes(item.text)) itemsToRemove.push(item.text);
-                  });
-                });
-              });
-              return prevItems.filter((pi) => !itemsToRemove.includes(pi));
-            });
-            return conversationData;
-          }
-          return prevItems;
-        });
-      });
-    }
-  }, [channelId, JSON.stringify(messages), JSON.stringify(posts), JSON.stringify(tasks)]);
+    perspective.addListener("link-added", linkAddedListener);
+    checkIfUsingLLM();
+    getData();
+
+    return () => perspective.removeListener("link-added", linkAddedListener);
+  }, []);
 
   return (
     <div className={styles.wrapper}>
-      <j-flex a="center" gap="400" className={styles.header}>
-        <j-text nomargin>Zoom</j-text>
-        <j-menu style={{ height: 42, zIndex: 3 }}>
-          <j-menu-group collapsible title={zoom} id="zoom-menu">
-            {groupingOptions.map((option) => (
-              <j-menu-item
-                selected={zoom === option}
-                onClick={() => {
-                  setZoom(option);
-                  closeMenu("zoom-menu");
-                }}
-              >
-                {option}
-              </j-menu-item>
-            ))}
-          </j-menu-group>
-        </j-menu>
+      <j-flex a="center" j="between" className={styles.header}>
+        <j-flex a="center" gap="400">
+          <j-text nomargin>Zoom</j-text>
+          <j-menu style={{ height: 42, zIndex: 3 }}>
+            <j-menu-group collapsible title={zoom} id="zoom-menu">
+              {groupingOptions.map((option) => (
+                <j-menu-item
+                  selected={zoom === option}
+                  onClick={() => {
+                    setZoom(option);
+                    closeMenu("zoom-menu");
+                  }}
+                >
+                  {option}
+                </j-menu-item>
+              ))}
+            </j-menu-group>
+          </j-menu>
+        </j-flex>
+        {(processingItems.length > 0 || unprocessedItems.length > 0) && (
+          <j-flex a="center" gap="400">
+            {processingItems.length > 0 && (
+              <j-badge variant="success">
+                {processingItems.length} item
+                {processingItems.length > 1 ? "s" : ""} processing...
+              </j-badge>
+            )}
+            {unprocessedItems.length > 0 && (
+              <>
+                <j-badge variant="warning">
+                  {unprocessedItems.length} unprocessed item
+                  {unprocessedItems.length > 1 ? "s" : ""}
+                </j-badge>
+                {usingLLM && (
+                  <j-button
+                    size="sm"
+                    onClick={processItems}
+                    loading={processing}
+                    disabled={processing}
+                  >
+                    Process
+                  </j-button>
+                )}
+              </>
+            )}
+          </j-flex>
+        )}
       </j-flex>
       <div className={styles.timeline}>
         <div className={styles.fades}>
@@ -97,7 +123,7 @@ export default function TimelineColumn({
           <div className={styles.line} />
         </div>
         <div id="timeline-0" className={styles.items}>
-          {data.map((conversation: any) => (
+          {conversations.map((conversation: any) => (
             <TimelineBlock
               agent={agent}
               perspective={perspective}
@@ -110,17 +136,6 @@ export default function TimelineColumn({
               search={search}
             />
           ))}
-          {processingItems.length > 0 && (
-            <div style={{ marginLeft: 70 }}>
-              <j-flex a="center" gap="400">
-                <j-text size="600" nomargin>
-                  Processing {processingItems.length > 1 ? processingItems.length + " " : ""}item
-                  {processingItems.length > 1 ? "s" : ""}...
-                </j-text>
-                <j-spinner size="sm" />
-              </j-flex>
-            </div>
-          )}
         </div>
       </div>
     </div>

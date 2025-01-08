@@ -9,17 +9,9 @@ type Props = {
   agent: AgentClient;
   currentView: string;
   setModalOpen?: (state: boolean) => void;
-  setProcessingItems?: (items) => void;
 };
 
-export default function App({
-  perspective,
-  source,
-  agent,
-  currentView,
-  setModalOpen,
-  setProcessingItems,
-}: Props) {
+export default function App({ perspective, source, agent, currentView, setModalOpen }: Props) {
   if (!perspective?.uuid || !source) {
     return null;
   }
@@ -32,7 +24,6 @@ export default function App({
         perspective={perspective}
         currentView={currentView}
         setModalOpen={setModalOpen}
-        setProcessingItems={setProcessingItems}
       />
     </UiProvider>
   );

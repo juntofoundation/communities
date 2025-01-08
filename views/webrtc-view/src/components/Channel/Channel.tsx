@@ -26,7 +26,6 @@ type Props = {
   agent: AgentClient;
   currentView: string;
   setModalOpen?: (state: boolean) => void;
-  setProcessingItems?: (items) => void;
 };
 
 export default function Channel({
@@ -35,7 +34,6 @@ export default function Channel({
   agent: agentClient,
   currentView,
   setModalOpen,
-  setProcessingItems,
 }: Props) {
   const [agent, setAgent] = useState<Agent | null>(null);
   const wrapperEl = useRef<HTMLDivElement | null>(null);
@@ -89,14 +87,9 @@ export default function Channel({
       className={`${styles.outer} ${currentView === "@coasys/flux-synergy-demo-view" && styles.synergy}`}
       ref={wrapperEl}
     >
-      {!["@coasys/flux-webrtc-view", "@coasys/flux-synergy-demo-view"].includes(
-        currentView
-      ) &&
+      {!["@coasys/flux-webrtc-view", "@coasys/flux-synergy-demo-view"].includes(currentView) &&
         setModalOpen && (
-          <button
-            className={styles.closeButton}
-            onClick={() => setModalOpen(false)}
-          >
+          <button className={styles.closeButton} onClick={() => setModalOpen(false)}>
             <j-icon name="x" color="color-white" />
           </button>
         )}
@@ -112,22 +105,10 @@ export default function Channel({
 
       {webRTC.hasJoined && (
         <>
-          <UserGrid
-            webRTC={webRTC}
-            agentClient={agentClient}
-            profile={profile}
-          />
-          <Footer
-            webRTC={webRTC}
-            onToggleSettings={() => toggleShowSettings(!showSettings)}
-          />
+          <UserGrid webRTC={webRTC} agentClient={agentClient} profile={profile} />
+          <Footer webRTC={webRTC} onToggleSettings={() => toggleShowSettings(!showSettings)} />
           {webRTC.localState.settings.transcriber.on && (
-            <Transcriber
-              webRTC={webRTC}
-              source={source}
-              perspective={perspective}
-              setProcessingItems={setProcessingItems}
-            />
+            <Transcriber webRTC={webRTC} source={source} perspective={perspective} />
           )}
         </>
       )}
